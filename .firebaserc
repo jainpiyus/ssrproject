@@ -1,14 +1,14 @@
 {
   "targets": {
-    "tastio-contact-tracing": {
+    "<firebase-project-name>": {
       "hosting": {
         "ssrproject": [
-          "<project name>"
+          "<firebase-project-name>"
         ]
       }
     }
   },
   "projects": {
-    "default": "<projectbname>"
+    "default": "<firebase-project-name>"
   }
 }
