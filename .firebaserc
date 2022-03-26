@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "tastio-contact-tracing": {
+      "hosting": {
+        "ssrproject": [
+          "tastio-contact-tracing"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "tastio-contact-tracing"
+  }
+}

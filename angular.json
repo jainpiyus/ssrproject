@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ssrproject",
+            "outputPath": "dist/ssrproject/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -102,6 +102,81 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/ssrproject/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "ssrproject:build:development",
+              "serverTarget": "ssrproject:server:development"
+            },
+            "production": {
+              "browserTarget": "ssrproject:build:production",
+              "serverTarget": "ssrproject:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ssrproject:build:production",
+              "serverTarget": "ssrproject:server:production"
+            },
+            "development": {
+              "browserTarget": "ssrproject:build:development",
+              "serverTarget": "ssrproject:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "ssr": "cloud-functions",
+            "prerender": false,
+            "firebaseProject": "tastio-contact-tracing",
+            "firebaseHostingSite": "tastio-contact-tracing",
+            "functionName": "ssr_ssrproject",
+            "functionsNodeVersion": "14",
+            "region": "us-central1",
+            "browserTarget": "ssrproject:build:production",
+            "serverTarget": "ssrproject:server:production",
+            "prerenderTarget": "ssrproject:prerender:production",
+            "outputPath": "dist/ssrproject/functions"
           }
         }
       }
