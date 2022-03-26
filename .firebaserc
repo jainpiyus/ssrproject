@@ -3,12 +3,12 @@
     "tastio-contact-tracing": {
       "hosting": {
         "ssrproject": [
-          "tastio-contact-tracing"
+          "<project name>"
         ]
       }
     }
   },
   "projects": {
-    "default": "tastio-contact-tracing"
+    "default": "<projectbname>"
   }
 }
